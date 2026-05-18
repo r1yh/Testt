@@ -4,9 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>الخلاصة في الكيمياء | الأستاذ سلامة</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&family=Tajawal:wght@400;500;700&display=swap" rel="stylesheet">
+    
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@700;900&family=Tajawal:wght@400;700&display=swap');
-
         :root {
             --primary-orange: #d35400;
             --dark-orange: #a04000;
@@ -16,9 +18,16 @@
             --accent-gray: #7f8c8d;
             --highlight-yellow: #f1c40f;
             --success-green: #27ae60;
-            --black-pure: #000000;
+            --black-pure: #1a1a1a;
+            --shadow-soft: 0 10px 30px rgba(0,0,0,0.05);
+            --shadow-hover: 0 15px 35px rgba(211, 84, 0, 0.15);
+            --radius-card: 24px;
+            --radius-btn: 12px;
+            --transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
         }
 
+        * { box-sizing: border-box; outline: none; -webkit-tap-highlight-color: transparent; }
+        
         body {
             font-family: 'Tajawal', sans-serif;
             background-color: var(--light-bg);
@@ -26,120 +35,124 @@
             margin: 0;
             padding: 0;
             line-height: 1.6;
+            overflow-x: hidden;
+            min-height: 100vh;
         }
 
+        /* --- Header --- */
         header {
             background: linear-gradient(135deg, var(--dark-orange) 0%, #873600 100%);
             color: var(--white);
-            padding: 3rem 1rem;
+            padding: 3.5rem 1rem 2.5rem;
             text-align: center;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.25);
             position: relative;
+            border-bottom-left-radius: 40px;
+            border-bottom-right-radius: 40px;
+            box-shadow: 0 4px 20px rgba(160, 64, 0, 0.3);
+            margin-bottom: 1rem;
         }
 
         header h1 {
             margin: 0;
             font-family: 'Cairo', sans-serif;
-            font-size: clamp(2.2rem, 7vw, 3.8rem);
+            font-size: clamp(2rem, 6vw, 3.2rem);
             font-weight: 900;
             color: var(--highlight-yellow);
-            text-shadow: 2px 4px 8px rgba(0,0,0,0.3);
+            text-shadow: 2px 4px 6px rgba(0,0,0,0.2);
+            line-height: 1.2;
         }
 
-        .admin-login-btn {
-            position: absolute;
-            top: 15px;
-            left: 15px;
-            background: rgba(255, 255, 255, 0.2);
-            color: white;
-            border: 1px solid rgba(255, 255, 255, 0.4);
-            padding: 5px 15px;
-            border-radius: 20px;
-            font-size: 0.8rem;
-            cursor: pointer;
-            transition: 0.3s;
-            backdrop-filter: blur(5px);
-            z-index: 1001;
-        }
-        .admin-login-btn:hover {
-            background: white;
-            color: var(--dark-orange);
+        header p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+            margin-top: 10px;
+            font-weight: 500;
         }
 
+        /* --- Navigation --- */
         .main-nav {
             display: flex;
             justify-content: center;
-            background: var(--text-dark);
-            padding: 10px;
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-            gap: 15px;
+            background: var(--white);
+            max-width: 500px;
+            margin: -25px auto 20px;
+            padding: 8px;
+            border-radius: 50px;
+            box-shadow: var(--shadow-soft);
+            position: relative;
+            z-index: 10;
+            gap: 5px;
         }
 
         .main-nav button {
-            background: none;
+            background: transparent;
             border: none;
-            color: var(--white);
+            color: var(--accent-gray);
             font-family: 'Cairo', sans-serif;
-            font-size: 1.1rem;
+            font-size: 1rem;
+            font-weight: 700;
             cursor: pointer;
-            padding: 8px 15px;
-            border-radius: 8px;
-            transition: 0.3s;
+            padding: 10px 25px;
+            border-radius: 40px;
+            transition: var(--transition);
+            flex: 1;
         }
 
         .main-nav button.active-nav {
             background: var(--primary-orange);
+            color: var(--white);
+            box-shadow: 0 4px 12px rgba(211, 84, 0, 0.3);
         }
 
+        /* --- Layout --- */
         .container {
             max-width: 1000px;
-            margin: 2rem auto;
-            padding: 0 1rem;
+            margin: 0 auto;
+            padding: 0 1.5rem 4rem;
         }
 
         .section-panel {
             display: none;
-            animation: fadeIn 0.4s ease-out;
+            animation: slideUp 0.5s cubic-bezier(0.165, 0.84, 0.44, 1);
         }
 
-        .section-panel.active {
-            display: block;
-        }
+        .section-panel.active { display: block; }
 
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(20px); }
             to { opacity: 1; transform: translateY(0); }
         }
 
-        /* --- الوحدات الدراسية --- */
+        /* --- Tabs --- */
         .tabs-nav {
             display: flex;
             justify-content: center;
-            gap: 12px;
-            margin-bottom: 2rem;
+            gap: 10px;
+            margin-bottom: 2.5rem;
             flex-wrap: wrap;
         }
 
         .tab-button {
             background-color: var(--white);
-            border: none;
+            border: 2px solid transparent;
             color: var(--text-dark);
-            padding: 12px 24px;
+            padding: 12px 28px;
             cursor: pointer;
             font-weight: 700;
-            border-radius: 12px;
-            transition: all 0.3s ease;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            border-radius: var(--radius-btn);
+            transition: var(--transition);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
             font-family: 'Cairo', sans-serif;
             flex: 1;
-            min-width: 120px;
+            min-width: 140px;
+            font-size: 1rem;
         }
 
+        .tab-button:hover { transform: translateY(-2px); box-shadow: 0 6px 15px rgba(0,0,0,0.1); }
         .tab-button.active {
             background-color: var(--primary-orange);
             color: var(--white);
+            border-color: var(--dark-orange);
         }
 
         .tab-button-wide {
@@ -147,19 +160,30 @@
             background-color: var(--text-dark);
             color: var(--white);
             border: 2px solid var(--highlight-yellow);
-            font-size: 1.2rem;
-            margin-top: 5px;
+            margin-top: 10px;
         }
 
-        .unit-card {
+        /* --- Cards --- */
+        .unit-card, .exam-card {
             background: var(--white);
-            padding: 2.5rem;
-            border-radius: 25px;
-            box-shadow: 0 15px 40px rgba(0,0,0,0.08);
+            padding: 2rem;
+            border-radius: var(--radius-card);
+            box-shadow: var(--shadow-soft);
             margin-bottom: 2rem;
-            border: 1px solid rgba(211, 84, 0, 0.1);
+            border: 1px solid rgba(211, 84, 0, 0.05);
+            transition: var(--transition);
+        }
+        
+        .unit-card:hover { box-shadow: var(--shadow-hover); }
+
+        .unit-card h2 {
+            color: var(--dark-orange);
+            font-family: 'Cairo';
+            margin-top: 0;
+            font-size: 1.5rem;
         }
 
+        /* --- Video --- */
         .video-wrapper {
             position: relative;
             padding-bottom: 56.25%;
@@ -167,7 +191,8 @@
             overflow: hidden;
             border-radius: 18px;
             background: #000;
-            margin-bottom: 1.5rem;
+            margin: 1.5rem 0;
+            box-shadow: inset 0 0 20px rgba(0,0,0,0.5);
         }
 
         .video-wrapper iframe {
@@ -175,496 +200,734 @@
             top: 0; left: 0; width: 100%; height: 100%; border: none;
         }
 
+        .video-fallback {
+            position: absolute;
+            top: 50%; left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+            color: white;
+            z-index: 1;
+            width: 90%;
+        }
+        
+        .video-fallback a {
+            color: var(--highlight-yellow);
+            text-decoration: underline;
+            font-weight: bold;
+        }
+
+        /* --- Buttons Grid --- */
         .links-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 15px;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 12px;
         }
 
         .action-btn {
-            display: block;
-            padding: 15px;
-            text-align: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 14px 20px;
             text-decoration: none;
-            background-color: var(--primary-orange);
-            color: white;
-            border-radius: 12px;
+            background-color: var(--white);
+            color: var(--primary-orange);
+            border: 2px solid var(--primary-orange);
+            border-radius: var(--radius-btn);
             font-weight: 700;
-            transition: 0.3s;
+            transition: var(--transition);
+            gap: 8px;
         }
 
-        .action-btn:hover { background-color: var(--dark-orange); transform: translateY(-2px); }
+        .action-btn:hover {
+            background-color: var(--primary-orange);
+            color: var(--white);
+            transform: translateY(-2px);
+        }
+        
+        .action-btn.dark-bg {
+            background-color: var(--text-dark);
+            border-color: var(--text-dark);
+            color: var(--white);
+        }
+        .action-btn.dark-bg:hover {
+            background-color: #000;
+        }
 
-        /* --- مركز الاختبارات --- */
+        /* --- Exam Cards --- */
         .category-title {
             color: var(--dark-orange);
             font-family: 'Cairo';
-            border-right: 6px solid var(--primary-orange);
+            font-size: 1.4rem;
+            border-right: 5px solid var(--primary-orange);
             padding-right: 15px;
-            margin: 2.5rem 0 1.2rem;
+            margin: 3rem 0 1.5rem;
         }
 
         .exam-card {
-            background: var(--white);
-            margin-bottom: 20px;
-            padding: 25px;
-            border-radius: 20px;
             display: flex;
-            flex-wrap: wrap;
             justify-content: space-between;
             align-items: center;
-            box-shadow: 0 6px 20px rgba(0,0,0,0.05);
-            gap: 20px;
+            padding: 1.5rem 2rem;
         }
 
-        .exam-info { flex: 1; min-width: 250px; }
-        .exam-info h3 { margin: 0; font-family: 'Cairo'; font-size: 1.2rem; color: var(--text-dark); }
-        .exam-info p { margin: 8px 0 0; font-size: 0.95rem; color: var(--accent-gray); }
+        .exam-info h3 { margin: 0 0 5px; font-family: 'Cairo'; color: var(--text-dark); font-size: 1.2rem; }
+        .exam-info p { margin: 0; font-size: 0.9rem; color: var(--accent-gray); }
 
-        .exam-btns-container {
+        .exam-actions {
             display: flex;
-            flex-direction: column;
             gap: 10px;
-            min-width: 180px;
+            align-items: center;
         }
 
-        .btn-start-green {
+        .btn-start {
             background-color: var(--success-green);
             color: white;
-            padding: 14px 30px;
-            border-radius: 10px;
+            padding: 10px 25px;
+            border-radius: 30px;
             text-decoration: none;
-            font-weight: 800;
-            text-align: center;
-            transition: 0.3s;
+            font-weight: 700;
+            font-size: 0.95rem;
+            transition: var(--transition);
+            box-shadow: 0 4px 10px rgba(39, 174, 96, 0.2);
         }
+        .btn-start:hover { background-color: #219150; transform: scale(1.05); }
 
-        .btn-solve-black {
+        .btn-solve {
             background-color: var(--black-pure);
             color: white;
             padding: 8px 15px;
             border-radius: 8px;
             text-decoration: none;
             font-weight: 700;
-            font-size: 0.85rem;
+            font-size: 0.8rem;
+            transition: var(--transition);
+        }
+        .btn-solve:hover { background-color: #000; }
+
+        /* --- Footer --- */
+        footer {
             text-align: center;
-            transition: 0.3s;
-            width: fit-content;
-            margin: 0 auto;
+            padding: 2rem 1rem;
+            color: var(--accent-gray);
+            font-size: 0.9rem;
+            border-top: 1px solid rgba(0,0,0,0.05);
+            margin-top: 2rem;
         }
 
-        footer { text-align: center; padding: 4rem 1rem; color: var(--accent-gray); font-weight: bold; }
-
-        @media (max-width: 600px) {
-            .exam-card { text-align: center; justify-content: center; }
-            .exam-btns-container { width: 100%; }
-            .btn-solve-black { width: 100%; margin: 0; box-sizing: border-box; }
-        }
-
-        /* --- Admin Styles --- */
-        #admin-panel {
-            display: none;
+        /* --- Admin Trigger --- */
+        .admin-trigger {
             position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            background: white;
-            padding: 20px;
-            border-radius: 15px;
-            box-shadow: 0 0 100px rgba(0,0,0,0.5);
-            z-index: 2000;
-            width: 90%;
-            max-width: 600px;
-            max-height: 80vh;
-            overflow-y: auto;
-            direction: rtl;
+            bottom: 20px;
+            left: 20px;
+            width: 10px;
+            height: 10px;
+            background: rgba(0,0,0,0.05);
+            border: none;
+            border-radius: 50%;
+            cursor: pointer;
+            z-index: 1000;
+            transition: 0.3s;
         }
-        #admin-panel h2 { font-family: 'Cairo'; color: var(--primary-orange); }
-        .admin-field { margin-bottom: 15px; }
-        .admin-field label { display: block; font-weight: bold; margin-bottom: 5px; }
-        .admin-field input { width: 100%; padding: 8px; border: 1px solid #ccc; border-radius: 5px; box-sizing: border-box; }
-        .admin-actions { display: flex; gap: 10px; margin-top: 20px; }
-        .admin-btn { padding: 10px 20px; border: none; border-radius: 5px; cursor: pointer; font-weight: bold; }
-        .btn-save { background: var(--success-green); color: white; }
-        .btn-close { background: var(--accent-gray); color: white; }
-        #admin-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.7); z-index: 1999; }
-        
-        .loading-overlay {
+        .admin-trigger:hover { background: var(--primary-orange); width: 40px; height: 40px; opacity: 1; }
+        .admin-trigger::after {
+            content: '⚙️';
+            position: absolute;
+            top: 50%; left: 50%;
+            transform: translate(-50%, -50%);
+            opacity: 0;
+            transition: 0.3s;
+            font-size: 18px;
+        }
+        .admin-trigger:hover::after { opacity: 1; }
+
+        /* --- Admin Modal --- */
+        #admin-modal {
             display: none;
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(255,255,255,0.8);
-            z-index: 3000;
-            justify-content: center;
+            background: rgba(0,0,0,0.6);
+            backdrop-filter: blur(5px);
+            z-index: 2000;
             align-items: center;
-            font-weight: bold;
-            color: var(--primary-orange);
+            justify-content: center;
+        }
+        
+        .modal-content {
+            background: white;
+            padding: 30px;
+            border-radius: 20px;
+            width: 90%;
+            max-width: 500px;
+            max-height: 85vh;
+            overflow-y: auto;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.3);
+            animation: popIn 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        @keyframes popIn {
+            from { transform: scale(0.9); opacity: 0; }
+            to { transform: scale(1); opacity: 1; }
+        }
+
+        .modal-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; border-bottom: 1px solid #eee; padding-bottom: 10px; }
+        .modal-header h3 { margin: 0; color: var(--primary-orange); font-family: 'Cairo'; }
+        .close-modal { background: none; border: none; font-size: 1.5rem; cursor: pointer; color: #999; }
+
+        .form-group { margin-bottom: 15px; }
+        .form-group label { display: block; margin-bottom: 8px; font-weight: bold; font-size: 0.9rem; }
+        .form-group input { 
+            width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 8px; 
+            font-family: 'Tajawal'; transition: 0.3s;
+        }
+        .form-group input:focus { border-color: var(--primary-orange); box-shadow: 0 0 0 3px rgba(211, 84, 0, 0.1); }
+
+        .modal-actions { margin-top: 25px; display: flex; gap: 10px; }
+        .btn-full { width: 100%; padding: 12px; border: none; border-radius: 8px; cursor: pointer; font-weight: bold; font-family: 'Cairo'; transition: 0.3s; }
+        .btn-save { background: var(--success-green); color: white; flex: 2; }
+        .btn-cancel { background: #f1f1f1; color: #555; flex: 1; }
+        
+        /* --- Toast Notification --- */
+        #toast-container {
+            position: fixed;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 3000;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            width: 90%;
+            max-width: 350px;
+        }
+        .toast {
+            background: #333;
+            color: white;
+            padding: 12px 20px;
+            border-radius: 50px;
+            text-align: center;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            animation: slideDown 0.4s ease forwards;
+            opacity: 0;
+        }
+        .toast.success { background: var(--success-green); }
+        .toast.error { background: #c0392b; }
+        
+        @keyframes slideDown {
+            from { transform: translateY(-20px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        /* Loading Spinner */
+        .spinner {
+            width: 20px; height: 20px;
+            border: 3px solid rgba(255,255,255,0.3);
+            border-radius: 50%;
+            border-top-color: #fff;
+            animation: spin 1s ease-in-out infinite;
+            display: inline-block;
+        }
+        @keyframes spin { to { transform: rotate(360deg); } }
+
+        /* Mobile Adjustments */
+        @media (max-width: 768px) {
+            .exam-card { flex-direction: column; text-align: center; gap: 15px; }
+            .exam-actions { width: 100%; justify-content: center; }
+            .main-nav { width: 90%; margin: -20px auto 15px; }
+            header { padding-top: 2.5rem; }
         }
     </style>
 </head>
 <body>
 
-<div id="loading" class="loading-overlay">جاري تحديث البيانات...</div>
+    <!-- Toast Container -->
+    <div id="toast-container"></div>
 
-<button class="admin-login-btn" onclick="checkAdmin()">لوحة التحكم</button>
+    <!-- Admin Trigger -->
+    <button class="admin-trigger" onclick="checkAdmin()" aria-label="Admin Login"></button>
 
-<header>
-    <h1>الخلاصة في الكيمياء</h1>
-    <p>بإشراف الأستاذ سلامة</p>
-</header>
+    <header>
+        <h1>الخلاصة في الكيمياء</h1>
+        <p>بإشراف الأستاذ سلامة</p>
+    </header>
 
-<nav class="main-nav">
-    <button id="nav-units" class="active-nav" onclick="switchSection('units')">الوحدات الدراسية</button>
-    <button id="nav-exams" onclick="switchSection('exams')">مركز الاختبارات</button>
-</nav>
+    <nav class="main-nav">
+        <button id="nav-units" class="active-nav" onclick="switchSection('units')">الوحدات الدراسية</button>
+        <button id="nav-exams" onclick="switchSection('exams')">مركز الاختبارات</button>
+    </nav>
 
-<div class="container">
-    
-    <!-- قسم الوحدات -->
-    <section id="section-units" class="section-panel active">
-        <div class="tabs-nav">
-            <button class="tab-button active" onclick="showUnit('u4', this)">الوحدة 4</button>
-            <button class="tab-button" onclick="showUnit('u5', this)">الوحدة 5</button>
-            <button class="tab-button" onclick="showUnit('u67', this)">الوحدة 6 و 7</button>
-            <button class="tab-button tab-button-wide" onclick="showUnit('revAll', this)">📝 مراجعة الوحدات الشاملة</button>
-        </div>
+    <div class="container">
+        
+        <!-- قسم الوحدات -->
+        <section id="section-units" class="section-panel active">
+            <div class="tabs-nav">
+                <button class="tab-button active" onclick="showUnit('u4', this)">الوحدة 4</button>
+                <button class="tab-button" onclick="showUnit('u5', this)">الوحدة 5</button>
+                <button class="tab-button" onclick="showUnit('u67', this)">الوحدة 6 و 7</button>
+                <button class="tab-button tab-button-wide" onclick="showUnit('revAll', this)">📝 مراجعة الوحدات الشاملة</button>
+            </div>
 
-        <div id="u4" class="unit-card unit-data">
-            <h2 style="color:var(--dark-orange); font-family:'Cairo';">الوحدة 4: سرعة التفاعل ورتبته</h2>
-            <div class="video-wrapper">
-                <iframe id="video-u4" src=""></iframe>
+            <!-- Unit 4 -->
+            <div id="u4" class="unit-card unit-data">
+                <h2>الوحدة 4: سرعة التفاعل ورتبته</h2>
+                <div class="video-wrapper">
+                    <div class="video-fallback">
+                        <p>جاري تحميل الفيديو...</p>
+                        <p><a id="fallback-u4" href="#" target="_blank">اضغط هنا للمشاهدة مباشرة</a></p>
+                    </div>
+                    <iframe id="video-u4" src="" allow="autoplay" loading="lazy"></iframe>
+                </div>
+                <div class="links-grid">
+                    <a id="link-video-u4" href="#" target="_blank" class="action-btn">🎥 مشاهدة الفيديو</a>
+                    <a id="link-pdf-u4" href="#" target="_blank" class="action-btn">📚 تحميل الملزمة</a>
+                    <a id="link-sol-u4" href="#" target="_blank" class="action-btn">✅ حل الملزمة</a>
+                </div>
             </div>
-            <div class="links-grid">
-                <a id="link-video-u4" href="" target="_blank" class="action-btn">🎥 فيديو</a>
-                <a id="link-pdf-u4" href="#" class="action-btn">📚 الملزمة</a>
-                <a id="link-sol-u4" href="#" class="action-btn">✅ حل الملزمة</a>
-            </div>
-        </div>
 
-        <div id="u5" class="unit-card unit-data" style="display:none;">
-            <h2 style="color:var(--dark-orange); font-family:'Cairo';">الوحدة 5: الاتزان والأحماض والقواعد</h2>
-            <div class="video-wrapper">
-                <iframe id="video-u5" src=""></iframe>
+            <!-- Unit 5 -->
+            <div id="u5" class="unit-card unit-data" style="display:none;">
+                <h2>الوحدة 5: الاتزان والأحماض والقواعد</h2>
+                <div class="video-wrapper">
+                    <div class="video-fallback"><p>جاري تحميل الفيديو...</p></div>
+                    <iframe id="video-u5" src="" allow="autoplay" loading="lazy"></iframe>
+                </div>
+                <div class="links-grid">
+                    <a id="link-video-u5" href="#" target="_blank" class="action-btn">🎥 مشاهدة الفيديو</a>
+                    <a id="link-pdf-u5" href="#" target="_blank" class="action-btn">📚 تحميل الملزمة</a>
+                    <a id="link-sol-u5" href="#" target="_blank" class="action-btn">✅ حل الملزمة</a>
+                </div>
             </div>
-            <div class="links-grid">
-                <a id="link-video-u5" href="" target="_blank" class="action-btn">🎥 فيديو</a>
-                <a id="link-pdf-u5" href="#" class="action-btn">📚 الملزمة</a>
-                <a id="link-sol-u5" href="#" class="action-btn">✅ حل الملزمة</a>
-            </div>
-        </div>
 
-        <div id="u67" class="unit-card unit-data" style="display:none;">
-            <h2 style="color:var(--dark-orange); font-family:'Cairo';">الوحدة 6 و 7: الطاقة الحرارية والأنتروبي وجبس</h2>
-            <div class="video-wrapper">
-                <iframe id="video-u67" src=""></iframe>
+            <!-- Unit 6 & 7 -->
+            <div id="u67" class="unit-card unit-data" style="display:none;">
+                <h2>الوحدة 6 و 7: الطاقة الحرارية والأنتروبي</h2>
+                <div class="video-wrapper">
+                    <div class="video-fallback"><p>جاري تحميل الفيديو...</p></div>
+                    <iframe id="video-u67" src="" allow="autoplay" loading="lazy"></iframe>
+                </div>
+                <div class="links-grid">
+                    <a id="link-video-u67" href="#" target="_blank" class="action-btn">🎥 مشاهدة الفيديو</a>
+                    <a id="link-pdf-u67" href="#" target="_blank" class="action-btn">📚 تحميل الملزمة</a>
+                    <a id="link-sol-u67" href="#" target="_blank" class="action-btn">✅ حل الملزمة</a>
+                </div>
             </div>
-            <div class="links-grid">
-                <a id="link-video-u67" href="" target="_blank" class="action-btn">🎥 فيديو</a>
-                <a id="link-pdf-u67" href="" target="_blank" class="action-btn">📚 الملزمة</a>
-                <a id="link-sol-u67" href="" target="_blank" class="action-btn">✅ حل الملزمة</a>
-            </div>
-        </div>
 
-        <div id="revAll" class="unit-card unit-data" style="display:none; border-top: 5px solid var(--highlight-yellow);">
-            <h2 style="color:var(--text-dark); font-family:'Cairo'; text-align: center;">📝 مراجعة الوحدات الشاملة</h2>
-            <div class="video-wrapper">
-                <iframe id="video-revAll" src=""></iframe>
+            <!-- Review -->
+            <div id="revAll" class="unit-card unit-data" style="display:none; border-top: 5px solid var(--highlight-yellow);">
+                <h2 style="text-align: center; color: var(--text-dark);">📝 مراجعة الوحدات الشاملة</h2>
+                <div class="video-wrapper">
+                    <div class="video-fallback"><p>جاري تحميل الفيديو...</p></div>
+                    <iframe id="video-revAll" src="" allow="autoplay" loading="lazy"></iframe>
+                </div>
+                <div class="links-grid" style="grid-template-columns: 1fr;">
+                    <a id="link-video-revAll" href="#" target="_blank" class="action-btn dark-bg">🎥 مشاهدة المراجعة الشاملة</a>
+                </div>
             </div>
-            <div class="links-grid" style="grid-template-columns: 1fr;">
-                <a id="link-video-revAll" href="" target="_blank" class="action-btn" style="background-color: var(--text-dark);">🎥 فيديو</a>
-            </div>
-        </div>
-    </section>
+        </section>
 
-    <!-- قسم الاختبارات -->
-    <section id="section-exams" class="section-panel">
-        <h2 class="category-title">اختبارات متفرقة</h2>
-        <div class="exam-card">
-            <div class="exam-info"><h3>اختبار الوحدة 4</h3><p>سرعة التفاعل</p></div>
-            <div class="exam-btns-container">
-                <a id="exam-start-u4" href="#" class="btn-start-green">بدء الاختبار</a>
-                <a id="exam-solve-u4" href="#" class="btn-solve-black">حل للاختبار</a>
+        <!-- قسم الاختبارات -->
+        <section id="section-exams" class="section-panel">
+            <h2 class="category-title">اختبارات الوحدات</h2>
+            
+            <div class="exam-card">
+                <div class="exam-info">
+                    <h3>اختبار الوحدة 4</h3>
+                    <p>سرعة التفاعل ورتبته</p>
+                </div>
+                <div class="exam-actions">
+                    <a id="exam-start-u4" href="#" target="_blank" class="btn-start">بدء الاختبار</a>
+                    <a id="exam-solve-u4" href="#" target="_blank" class="btn-solve">الحل</a>
+                </div>
             </div>
-        </div>
-        <div class="exam-card">
-            <div class="exam-info"><h3>اختبار الوحدة 5</h3><p>الاتزان والأحماض</p></div>
-            <div class="exam-btns-container">
-                <a id="exam-start-u5" href="#" class="btn-start-green">بدء الاختبار</a>
-                <a id="exam-solve-u5" href="#" class="btn-solve-black">حل للاختبار</a>
-            </div>
-        </div>
-        <div class="exam-card">
-            <div class="exam-info"><h3>اختبار الوحدة 6</h3><p>الطاقة الحرارية</p></div>
-            <div class="exam-btns-container">
-                <a id="exam-start-u6" href="" target="_blank" class="btn-start-green">بدء الاختبار</a>
-                <a id="exam-solve-u6" href="" target="_blank" class="btn-solve-black">حل للاختبار</a>
-            </div>
-        </div>
-        <div class="exam-card">
-            <div class="exam-info"><h3>اختبار الوحدة 7</h3><p>الأنتروبي وطاقة جبس</p></div>
-            <div class="exam-btns-container">
-                <a id="exam-start-u7" href="" target="_blank" class="btn-start-green">بدء الاختبار</a>
-                <a id="exam-solve-u7" href="" target="_blank" class="btn-solve-black">حل للاختبار</a>
-            </div>
-        </div>
 
-        <h2 class="category-title">الاختبارات الشاملة</h2>
-        <div class="exam-card" style="border-left: 8px solid var(--text-dark);">
-            <div class="exam-info"><h3>الاختبار التجريبي الشامل (1)</h3><p>محاكاة كاملة للاختبار النهائي</p></div>
-            <div class="exam-btns-container">
-                <a id="exam-start-final" href="#" class="btn-start-green">بدء الاختبار الشامل</a>
-                <a id="exam-solve-final" href="#" class="btn-solve-black">حل للاختبار</a>
+            <div class="exam-card">
+                <div class="exam-info">
+                    <h3>اختبار الوحدة 5</h3>
+                    <p>الاتزان والأحماض والقواعد</p>
+                </div>
+                <div class="exam-actions">
+                    <a id="exam-start-u5" href="#" target="_blank" class="btn-start">بدء الاختبار</a>
+                    <a id="exam-solve-u5" href="#" target="_blank" class="btn-solve">الحل</a>
+                </div>
             </div>
-        </div>
-    </section>
-</div>
 
-<footer>
-    <p>© 2024 جميع الحقوق محفوظة | منصة الخلاصة في الكيمياء</p>
-</footer>
+            <div class="exam-card">
+                <div class="exam-info">
+                    <h3>اختبار الوحدة 6</h3>
+                    <p>الطاقة الحرارية</p>
+                </div>
+                <div class="exam-actions">
+                    <a id="exam-start-u6" href="#" target="_blank" class="btn-start">بدء الاختبار</a>
+                    <a id="exam-solve-u6" href="#" target="_blank" class="btn-solve">الحل</a>
+                </div>
+            </div>
 
-<!-- Admin Panel UI -->
-<div id="admin-overlay"></div>
-<div id="admin-panel">
-    <h2>لوحة التحكم (تحديث فوري)</h2>
-    <div id="admin-config" style="background: #f9f9f9; padding: 15px; border-radius: 10px; margin-bottom: 20px; border: 1px solid #ddd;">
-        <h4 style="margin-top:0">إعدادات GitHub (مرة واحدة فقط)</h4>
-        <div class="admin-field">
-            <label>GitHub Token (الرمز الخاص بك):</label>
-            <input type="password" id="gh-token" placeholder="ghp_xxxxxxxxxxxx">
-        </div>
-        <div class="admin-field">
-            <label>اسم المستخدم / اسم المستودع:</label>
-            <input type="text" id="gh-repo" placeholder="username/repo-name">
-        </div>
-        <button class="admin-btn" style="background: #3498db; color:white; width:100%" onclick="saveConfig()">حفظ الإعدادات وتحديث القائمة</button>
+            <div class="exam-card">
+                <div class="exam-info">
+                    <h3>اختبار الوحدة 7</h3>
+                    <p>الأنتروبي وطاقة جبس</p>
+                </div>
+                <div class="exam-actions">
+                    <a id="exam-start-u7" href="#" target="_blank" class="btn-start">بدء الاختبار</a>
+                    <a id="exam-solve-u7" href="#" target="_blank" class="btn-solve">الحل</a>
+                </div>
+            </div>
+
+            <h2 class="category-title">الاختبارات النهائية</h2>
+            <div class="exam-card" style="border-right: 6px solid var(--text-dark);">
+                <div class="exam-info">
+                    <h3 style="color: var(--primary-orange);">الاختبار الشامل التجريبي</h3>
+                    <p>محاكاة كاملة للاختبار النهائي</p>
+                </div>
+                <div class="exam-actions">
+                    <a id="exam-start-final" href="#" target="_blank" class="btn-start" style="background-color: var(--text-dark);">بدء الاختبار الشامل</a>
+                    <a id="exam-solve-final" href="#" target="_blank" class="btn-solve">الحل</a>
+                </div>
+            </div>
+        </section>
     </div>
-    
-    <div id="admin-fields-container">
-        <!-- Fields will be generated here -->
+
+    <footer>
+        <p>© 2024 جميع الحقوق محفوظة | منصة الخلاصة في الكيمياء</p>
+    </footer>
+
+    <!-- Admin Modal -->
+    <div id="admin-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>لوحة التحكم</h3>
+                <button class="close-modal" onclick="closeAdmin()">×</button>
+            </div>
+            
+            <div id="admin-step-1">
+                <p style="color:#666; font-size:0.9rem; margin-bottom:15px;">يرجى إدخال بيانات الاتصال بـ GitHub لتحديث الروابط.</p>
+                <div class="form-group">
+                    <label>GitHub Token</label>
+                    <input type="password" id="gh-token" placeholder="ghp_xxxxxxxxxxxx">
+                </div>
+                <div class="form-group">
+                    <label>اسم المستودع (user/repo)</label>
+                    <input type="text" id="gh-repo" placeholder="username/repo-name">
+                </div>
+                <div class="modal-actions">
+                    <button class="btn-full btn-save" onclick="connectGitHub()">اتصال وجلب البيانات</button>
+                </div>
+            </div>
+
+            <div id="admin-step-2" style="display:none;">
+                <p style="color:var(--success-green); font-weight:bold; margin-bottom:15px;">✅ متصل. يمكنك تعديل الروابط أدناه:</p>
+                <div id="links-editor" style="max-height: 300px; overflow-y: auto; padding-right: 5px; margin-bottom: 15px;">
+                    <!-- Inputs generated by JS -->
+                </div>
+                <div class="modal-actions">
+                    <button class="btn-full btn-cancel" onclick="closeAdmin()">إلغاء</button>
+                    <button class="btn-full btn-save" onclick="saveChanges()">حفظ التحديثات</button>
+                </div>
+            </div>
+        </div>
     </div>
-    <div class="admin-actions">
-        <button class="admin-btn btn-save" onclick="updateGitHubData()">حفظ التعديلات للجميع</button>
-        <button class="admin-btn btn-close" onclick="closeAdmin()">إغلاق</button>
-    </div>
-</div>
 
-<script>
-    // Default Data (Fallback)
-    var siteData = {
-        "video-u4": "https://drive.google.com/file/d/1sR3R0fGdjKcO3D-rrPdmquyh7jqGiihF/preview",
-        "link-video-u4": "https://drive.google.com/file/d/1sR3R0fGdjKcO3D-rrPdmquyh7jqGiihF/view",
-        "link-pdf-u4": "#", "link-sol-u4": "#",
-        "video-u5": "https://drive.google.com/file/d/10GQ3Ybjbuu3pD9WyxnVDCHW08CeXjQMt/preview",
-        "link-video-u5": "https://drive.google.com/file/d/10GQ3Ybjbuu3pD9WyxnVDCHW08CeXjQMt/view",
-        "link-pdf-u5": "#", "link-sol-u5": "#",
-        "video-u67": "https://drive.google.com/file/d/15eulQ0OeOSfaG-81cd8Flri0U5484auX/preview",
-        "link-video-u67": "https://drive.google.com/file/d/15eulQ0OeOSfaG-81cd8Flri0U5484auX/view",
-        "link-pdf-u67": "https://drive.google.com/file/d/1p0l28lkq3m5GUwhVmgc5cKZCiB9ObFlh/view",
-        "link-sol-u67": "https://drive.google.com/file/d/1FZcS5kuep8SdeWsatfI32FizgyonvfbW/view",
-        "video-revAll": "https://drive.google.com/file/d/18bR2bAM5Hp-C7MLoIvzbkH40AXj_oxzq/preview",
-        "link-video-revAll": "https://drive.google.com/file/d/18bR2bAM5Hp-C7MLoIvzbkH40AXj_oxzq/view",
-        "exam-start-u4": "#", "exam-solve-u4": "#",
-        "exam-start-u5": "#", "exam-solve-u5": "#",
-        "exam-start-u6": "https://drive.google.com/file/d/1ejbdx94u2CNHff-IBS79fkIvUCQ_NWrb/view",
-        "exam-solve-u6": "https://drive.google.com/file/d/18Pgj6TrYg5WDLpZjhsk91nox59cVnOss/view",
-        "exam-start-u7": "https://drive.google.com/file/d/1guv8DXYtsHVRMMOFQT6-rxNtyGRdcoCF/view",
-        "exam-solve-u7": "https://drive.google.com/file/d/1l0OpyuFpsR_Z_8f_wXVbstqer8B6cw1G/view",
-        "exam-start-final": "#", "exam-solve-final": "#"
-    };
+    <script>
+        // --- State Management ---
+        const defaultData = {
+            "video-u4": "https://drive.google.com/file/d/1sR3R0fGdjKcO3D-rrPdmquyh7jqGiihF/preview",
+            "link-video-u4": "https://drive.google.com/file/d/1sR3R0fGdjKcO3D-rrPdmquyh7jqGiihF/view",
+            "link-pdf-u4": "#", "link-sol-u4": "#",
+            "video-u5": "https://drive.google.com/file/d/10GQ3Ybjbuu3pD9WyxnVDCHW08CeXjQMt/preview",
+            "link-video-u5": "https://drive.google.com/file/d/10GQ3Ybjbuu3pD9WyxnVDCHW08CeXjQMt/view",
+            "link-pdf-u5": "#", "link-sol-u5": "#",
+            "video-u67": "https://drive.google.com/file/d/15eulQ0OeOSfaG-81cd8Flri0U5484auX/preview",
+            "link-video-u67": "https://drive.google.com/file/d/15eulQ0OeOSfaG-81cd8Flri0U5484auX/view",
+            "link-pdf-u67": "https://drive.google.com/file/d/1p0l28lkq3m5GUwhVmgc5cKZCiB9ObFlh/view",
+            "link-sol-u67": "https://drive.google.com/file/d/1FZcS5kuep8SdeWsatfI32FizgyonvfbW/view",
+            "video-revAll": "https://drive.google.com/file/d/18bR2bAM5Hp-C7MLoIvzbkH40AXj_oxzq/preview",
+            "link-video-revAll": "https://drive.google.com/file/d/18bR2bAM5Hp-C7MLoIvzbkH40AXj_oxzq/view",
+            "exam-start-u4": "#", "exam-solve-u4": "#",
+            "exam-start-u5": "#", "exam-solve-u5": "#",
+            "exam-start-u6": "https://drive.google.com/file/d/1ejbdx94u2CNHff-IBS79fkIvUCQ_NWrb/view",
+            "exam-solve-u6": "https://drive.google.com/file/d/18Pgj6TrYg5WDLpZjhsk91nox59cVnOss/view",
+            "exam-start-u7": "https://drive.google.com/file/d/1guv8DXYtsHVRMMOFQT6-rxNtyGRdcoCF/view",
+            "exam-solve-u7": "https://drive.google.com/file/d/1l0OpyuFpsR_Z_8f_wXVbstqer8B6cw1G/view",
+            "exam-start-final": "#", "exam-solve-final": "#"
+        };
 
-    var config = {
-        token: localStorage.getItem('gh_token') || '',
-        repo: localStorage.getItem('gh_repo') || '',
-        path: 'data.json'
-    };
+        let siteData = { ...defaultData };
+        let config = {
+            token: localStorage.getItem('gh_token') || '',
+            repo: localStorage.getItem('gh_repo') || '',
+            path: 'data.json'
+        };
 
-    var labels = {
-        "video-u4": "فيديو الوحدة 4 (رابط Preview)",
-        "link-video-u4": "رابط فيديو الوحدة 4 (للمشاهدة)",
-        "link-pdf-u4": "ملزمة الوحدة 4",
-        "link-sol-u4": "حل ملزمة الوحدة 4",
-        "video-u5": "فيديو الوحدة 5 (رابط Preview)",
-        "link-video-u5": "رابط فيديو الوحدة 5 (للمشاهدة)",
-        "link-pdf-u5": "ملزمة الوحدة 5",
-        "link-sol-u5": "حل ملزمة الوحدة 5",
-        "video-u67": "فيديو الوحدة 6و7 (رابط Preview)",
-        "link-video-u67": "رابط فيديو الوحدة 6و7 (للمشاهدة)",
-        "link-pdf-u67": "ملزمة الوحدة 6و7",
-        "link-sol-u67": "حل ملزمة الوحدة 6و7",
-        "video-revAll": "فيديو المراجعة (رابط Preview)",
-        "link-video-revAll": "رابط فيديو المراجعة (للمشاهدة)",
-        "exam-start-u4": "بدء اختبار الوحدة 4",
-        "exam-solve-u4": "حل اختبار الوحدة 4",
-        "exam-start-u5": "بدء اختبار الوحدة 5",
-        "exam-solve-u5": "حل اختبار الوحدة 5",
-        "exam-start-u6": "بدء اختبار الوحدة 6",
-        "exam-solve-u6": "حل اختبار الوحدة 6",
-        "exam-start-u7": "بدء اختبار الوحدة 7",
-        "exam-solve-u7": "حل اختبار الوحدة 7",
-        "exam-start-final": "بدء الاختبار الشامل",
-        "exam-solve-final": "حل الاختبار الشامل"
-    };
+        const prettyLabels = {
+            "video-u4": "فيديو الوحدة 4", "link-pdf-u4": "ملزمة الوحدة 4", "link-sol-u4": "حل الوحدة 4",
+            "video-u5": "فيديو الوحدة 5", "link-pdf-u5": "ملزمة الوحدة 5", "link-sol-u5": "حل الوحدة 5",
+            "video-u67": "فيديو الوحدة 6&7", "link-pdf-u67": "ملزمة الوحدة 6&7", "link-sol-u67": "حل الوحدة 6&7",
+            "video-revAll": "فيديو المراجعة", "link-video-revAll": "رابط مراجعة يوتيوب",
+            "exam-start-u4": "اختبار 4", "exam-solve-u4": "حل اختبار 4",
+            "exam-start-u5": "اختبار 5", "exam-solve-u5": "حل اختبار 5",
+            "exam-start-u6": "اختبار 6", "exam-solve-u6": "حل اختبار 6",
+            "exam-start-u7": "اختبار 7", "exam-solve-u7": "حل اختبار 7",
+            "exam-start-final": "اختبار نهائي", "exam-solve-final": "حل نهائي"
+        };
 
-    // Fetch data from GitHub on load
-    async function fetchData() {
-        if (!config.repo) {
-            applyData(); // Use default data if no repo configured
-            return;
-        }
-        try {
-            const response = await fetch(`https://raw.githubusercontent.com/${config.repo}/main/${config.path}?t=${Date.now()}`);
-            if (response.ok) {
-                siteData = await response.json();
-                applyData();
+        // --- Core Functions ---
+
+        // Detect GitHub Pages repo automatically
+        function detectRepo() {
+            const host = window.location.hostname;
+            const path = window.location.pathname;
+            if (host.includes('github.io')) {
+                const user = host.split('.')[0];
+                const repo = path.split('/')[1];
+                if (user && repo) return `${user}/${repo}`;
             }
-        } catch (error) {
-            console.error("Error fetching data:", error);
+            return '';
+        }
+
+        // Fetch data from GitHub
+        async function fetchData() {
+            // Auto-detect if empty
+            if (!config.repo) config.repo = detectRepo();
+
+            if (!config.repo) {
+                applyData();
+                return;
+            }
+
+            try {
+                // Try API first (faster, supports private)
+                const apiRes = await fetch(`https://api.github.com/repos/${config.repo}/contents/${config.path}?t=${Date.now()}`, {
+                    headers: config.token ? { 'Authorization': `token ${config.token}` } : {}
+                });
+                
+                if (apiRes.ok) {
+                    const data = await apiRes.json();
+                    const content = decodeURIComponent(escape(atob(data.content)));
+                    siteData = JSON.parse(content);
+                    showToast('تم تحديث البيانات بنجاح', 'success');
+                } else {
+                    throw new Error('API Failed');
+                }
+            } catch (e) {
+                // Fallback to Raw URL (slower but public)
+                try {
+                    const rawRes = await fetch(`https://raw.githubusercontent.com/${config.repo}/main/${config.path}?t=${Date.now()}`);
+                    if (rawRes.ok) {
+                        siteData = await rawRes.json();
+                        showToast('تم تحميل البيانات (نسخة احتياطية)', 'success');
+                    } else {
+                        console.warn("Using offline data");
+                    }
+                } catch (err) {
+                    console.error("Fetch error:", err);
+                }
+            }
             applyData();
         }
-    }
 
-    function applyData() {
-        for (var id in siteData) {
-            var el = document.getElementById(id);
-            if (el) {
-                if (el.tagName === 'IFRAME') el.src = siteData[id];
-                else el.href = siteData[id];
+        // Apply data to DOM
+        function applyData() {
+            for (const [id, url] of Object.entries(siteData)) {
+                const el = document.getElementById(id);
+                if (!el) continue;
+
+                if (el.tagName === 'IFRAME') {
+                    el.src = url;
+                    // Update fallback link for videos
+                    const fallbackId = 'fallback-' + id.replace('video-', '');
+                    const fallbackEl = document.getElementById(fallbackId);
+                    if (fallbackEl && url && url !== '#') {
+                        fallbackEl.href = url.replace('/preview', '/view');
+                        fallbackEl.parentElement.style.display = 'none'; // Hide fallback text if video loads
+                    }
+                } else {
+                    el.href = url;
+                    // Disable links if empty
+                    if (url === '#' || !url) {
+                        el.style.opacity = '0.5';
+                        el.style.pointerEvents = 'none';
+                    } else {
+                        el.style.opacity = '1';
+                        el.style.pointerEvents = 'auto';
+                    }
+                }
             }
         }
-    }
 
-    function saveConfig() {
-        const token = document.getElementById('gh-token').value;
-        const repo = document.getElementById('gh-repo').value;
-        if (token) localStorage.setItem('gh_token', token);
-        if (repo) localStorage.setItem('gh_repo', repo);
-        config.token = token || config.token;
-        config.repo = repo || config.repo;
-        alert("تم حفظ الإعدادات. جاري محاولة جلب البيانات...");
-        fetchData().then(() => {
-            renderFields();
-        });
-    }
+        // --- UI Interactions ---
 
-    async function updateGitHubData() {
-        if (!config.token || !config.repo) {
-            alert("يرجى إدخال الـ Token واسم المستودع في قسم الإعدادات أولاً.");
-            return;
-        }
-
-        document.getElementById('loading').style.display = 'flex';
-
-        // Update siteData from inputs
-        for (var id in siteData) {
-            var input = document.getElementById('input-' + id);
-            if (input) siteData[id] = input.value;
-        }
-
-        try {
-            // 1. Get the current file SHA
-            const getFile = await fetch(`https://api.github.com/repos/${config.repo}/contents/${config.path}`, {
-                headers: { 'Authorization': `token ${config.token}` }
-            });
+        function switchSection(sectionId) {
+            document.querySelectorAll('.section-panel').forEach(s => s.classList.remove('active'));
+            document.querySelectorAll('.main-nav button').forEach(b => b.classList.remove('active-nav'));
             
-            if (!getFile.ok) {
-                throw new Error("لم يتم العثور على ملف data.json في المستودع. تأكد من رفعه أولاً.");
+            document.getElementById(`section-${sectionId}`).classList.add('active');
+            document.getElementById(`nav-${sectionId}`).classList.add('active-nav');
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function showUnit(unitId, btn) {
+            document.querySelectorAll('.unit-data').forEach(u => u.style.display = 'none');
+            document.querySelectorAll('.tab-button').forEach(b => b.classList.remove('active'));
+            
+            const unit = document.getElementById(unitId);
+            if(unit) {
+                unit.style.display = 'block';
+                // Add subtle animation
+                unit.style.animation = 'none';
+                unit.offsetHeight; /* trigger reflow */
+                unit.style.animation = 'slideUp 0.4s ease forwards';
+            }
+            if(btn) btn.classList.add('active');
+        }
+
+        // --- Admin Logic ---
+
+        function checkAdmin() {
+            const pass = prompt("كلمة المرور:");
+            if (pass === "admin-salama") {
+                document.getElementById('admin-modal').style.display = 'flex';
+                document.getElementById('gh-token').value = config.token;
+                document.getElementById('gh-repo').value = config.repo;
+                
+                // If already connected, show step 2
+                if(config.token && config.repo) {
+                    document.getElementById('admin-step-1').style.display = 'none';
+                    document.getElementById('admin-step-2').style.display = 'block';
+                    renderEditor();
+                }
+            } else if (pass !== null) {
+                showToast("كلمة المرور غير صحيحة", "error");
+            }
+        }
+
+        function closeAdmin() {
+            document.getElementById('admin-modal').style.display = 'none';
+        }
+
+        async function connectGitHub() {
+            const token = document.getElementById('gh-token').value;
+            const repo = document.getElementById('gh-repo').value;
+
+            if (!repo) { showToast("يرجى إدخال اسم المستودع", "error"); return; }
+
+            config.token = token;
+            config.repo = repo;
+            
+            // Save to local storage
+            localStorage.setItem('gh_token', token);
+            localStorage.setItem('gh_repo', repo);
+
+            showToast("جاري الاتصال بـ GitHub...", "success");
+            
+            await fetchData();
+            
+            // Switch UI
+            document.getElementById('admin-step-1').style.display = 'none';
+            document.getElementById('admin-step-2').style.display = 'block';
+            renderEditor();
+        }
+
+        function renderEditor() {
+            const container = document.getElementById('links-editor');
+            container.innerHTML = '';
+            
+            for (const [key, val] of Object.entries(siteData)) {
+                const div = document.createElement('div');
+                div.className = 'form-group';
+                div.innerHTML = `
+                    <label style="font-size:0.8rem; color:#555;">${prettyLabels[key] || key}</label>
+                    <input type="text" id="edit-${key}" value="${val}">
+                `;
+                container.appendChild(div);
+            }
+        }
+
+        async function saveChanges() {
+            // Collect new data
+            for (const key of Object.keys(siteData)) {
+                const input = document.getElementById(`edit-${key}`);
+                if (input) siteData[key] = input.value;
             }
 
-            const fileData = await getFile.json();
-            const sha = fileData.sha;
-
-            // 2. Update the file
-            const updateFile = await fetch(`https://api.github.com/repos/${config.repo}/contents/${config.path}`, {
-                method: 'PUT',
-                headers: {
-                    'Authorization': `token ${config.token}`,
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({
-                    message: 'Update links via Admin Panel',
-                    content: btoa(unescape(encodeURIComponent(JSON.stringify(siteData, null, 4)))),
-                    sha: sha
-                })
-            });
-
-            if (updateFile.ok) {
-                alert("تم التحديث بنجاح! ستظهر التعديلات للجميع خلال لحظات.");
-                applyData();
-                closeAdmin();
-            } else {
-                const err = await updateFile.json();
-                alert("خطأ من GitHub: " + err.message);
+            if (!config.token || !config.repo) {
+                showToast("بيانات الاتصال مفقودة", "error");
+                return;
             }
-        } catch (error) {
-            alert("خطأ: " + error.message);
-            console.error(error);
-        } finally {
-            document.getElementById('loading').style.display = 'none';
+
+            const btn = document.querySelector('.btn-save');
+            const originalText = btn.innerText;
+            btn.innerHTML = '<span class="spinner"></span> جاري الحفظ...';
+
+            try {
+                // 1. Get SHA
+                const getFile = await fetch(`https://api.github.com/repos/${config.repo}/contents/${config.path}`, {
+                    headers: { 'Authorization': `token ${config.token}` }
+                });
+                
+                if (!getFile.ok) throw new Error("فشل الوصول للملف. تأكد من صلاحيات التوكن.");
+                
+                const fileData = await getFile.json();
+                const sha = fileData.sha;
+
+                // 2. Update File
+                const contentEncoded = btoa(unescape(encodeURIComponent(JSON.stringify(siteData, null, 2))));
+                
+                const updateFile = await fetch(`https://api.github.com/repos/${config.repo}/contents/${config.path}`, {
+                    method: 'PUT',
+                    headers: {
+                        'Authorization': `token ${config.token}`,
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        message: 'Update content via Admin Panel',
+                        content: contentEncoded,
+                        sha: sha
+                    })
+                });
+
+                if (updateFile.ok) {
+                    showToast("تم حفظ التعديلات وتحديث الموقع!", "success");
+                    applyData();
+                    closeAdmin();
+                } else {
+                    const err = await updateFile.json();
+                    throw new Error(err.message);
+                }
+            } catch (error) {
+                showToast("خطأ: " + error.message, "error");
+            } finally {
+                btn.innerText = originalText;
+            }
         }
-    }
 
-    function switchSection(section) {
-        document.getElementById('section-units').classList.remove('active');
-        document.getElementById('section-exams').classList.remove('active');
-        document.getElementById('nav-units').classList.remove('active-nav');
-        document.getElementById('nav-exams').classList.remove('active-nav');
-        if(section === 'units') {
-            document.getElementById('section-units').classList.add('active');
-            document.getElementById('nav-units').classList.add('active-nav');
-        } else {
-            document.getElementById('section-exams').classList.add('active-nav');
-            document.getElementById('section-exams').classList.add('active');
+        // --- Utilities ---
+
+        function showToast(message, type = 'success') {
+            const container = document.getElementById('toast-container');
+            const toast = document.createElement('div');
+            toast.className = `toast ${type}`;
+            toast.innerHTML = type === 'success' ? `✅ ${message}` : `⚠️ ${message}`;
+            
+            container.appendChild(toast);
+            
+            // Remove after 3 seconds
+            setTimeout(() => {
+                toast.style.opacity = '0';
+                setTimeout(() => toast.remove(), 400);
+            }, 3000);
         }
-        window.scrollTo(0,0);
-    }
 
-    function showUnit(unitId, btn) {
-        document.querySelectorAll('.unit-data').forEach(u => u.style.display = 'none');
-        document.querySelectorAll('.tab-button').forEach(b => b.classList.remove('active'));
-        document.getElementById(unitId).style.display = 'block';
-        btn.classList.add('active');
-    }
+        // --- Init ---
+        window.addEventListener('DOMContentLoaded', () => {
+            fetchData();
+            // Initialize first unit view
+            showUnit('u4', document.querySelector('.tab-button.active'));
+        });
 
-    function checkAdmin() {
-        var pass = prompt("أدخل كلمة مرور الإدارة:");
-        if (pass === "a") { 
-            openAdmin();
-        } else {
-            alert("كلمة مرور خاطئة");
-        }
-    }
-
-    function renderFields() {
-        var container = document.getElementById('admin-fields-container');
-        container.innerHTML = '<h4 style="border-bottom: 2px solid var(--primary-orange); padding-bottom: 5px;">تعديل الروابط:</h4>';
-        
-        for (var id in siteData) {
-            var div = document.createElement('div');
-            div.className = 'admin-field';
-            div.innerHTML = '<label>' + (labels[id] || id) + '</label><input type="text" id="input-' + id + '" value="' + siteData[id] + '">';
-            container.appendChild(div);
-        }
-    }
-
-    function openAdmin() {
-        document.getElementById('gh-token').value = config.token;
-        document.getElementById('gh-repo').value = config.repo;
-        
-        renderFields();
-        
-        document.getElementById('admin-overlay').style.display = 'block';
-        document.getElementById('admin-panel').style.display = 'block';
-    }
-
-    function closeAdmin() {
-        document.getElementById('admin-overlay').style.display = 'none';
-        document.getElementById('admin-panel').style.display = 'none';
-    }
-
-    // Initial fetch
-    fetchData();
-</script>
-
+    </script>
 </body>
 </html>
